@@ -1,4 +1,1 @@
-function validURL(url) {
-}
-
-export { handleSubmit }
+// Verify that input is valid url
