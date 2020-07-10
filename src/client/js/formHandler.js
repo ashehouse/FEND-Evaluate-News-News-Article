@@ -1,39 +1,50 @@
-var validUrl = require('valid-url');
-
+var validUrl = require('valid-url')
 function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
-    let formText = document.getElementById('articleurl').value
-    
-    // Verify that input is valid url
-    if (validUrl.isUri(formText)){
-        console.log('Looks like an URI');
-        postData('http//localhost:8080/article', formText)
-    } else {
-        console.log('Not a URI');
-    }
-    
-   
+    //Client.checkForName(formText)
+    //var input_url = document.querySelectorAll('input[name=test-url]');
 
+    console.log("::: Form Submitted :::")
+    //fetch('http://localhost:8080/save')
+    //.then(res => res.json())
+    //.then(function(res) {
+        //document.getElementById('results').innerHTML = res.message
+    //})
+    let formText = document.getElementById('name').value
+    if (validUrl.isUri(formText)){
+      _postData('http://localhost:8080/article', formText)
+    } else {
+      document.getElementById('error-message').innerHTML = "Sorry, this is not a valid URL."
+    }
 }
 
-const postData = async (path, input_url) => {
+const _postData = async (path, input_url) => {
     await fetch(path, {
-        method: "POST",
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({text: input_url}),
-    });
-    try {
-        let newData = await response.text();
-        // console.log(newData);
-        return newData;
-    } catch(error) {
-        console.log('error', error);
-    };
-};
+      method: "POST",
+      cache: "no-cache", 
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      redirect: "follow",
+      body: JSON.stringify({text: input_url})
+        })
+        .then(res => {
+          console.log(res)
+          return res.json()
+        })
+        .then(function(res) {
+
+          console.log(res);
+
+          document.getElementById('polarity').innerHTML = JSON.stringify(res.polarity);
+          document.getElementById('subjectivity').innerHTML = JSON.stringify(res.subjectivity);
+          document.getElementById('polarity_confidence').innerHTML = JSON.stringify(res.polarity_confidence);
+          document.getElementById('subjectivity_confidence').innerHTML = JSON.stringify(res.subjectivity_confidence);
+          document.getElementById('excerpt').innerHTML = JSON.stringify(res.text);
+  }
+)}
 
 export { handleSubmit }
