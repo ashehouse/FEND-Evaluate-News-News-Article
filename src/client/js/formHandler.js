@@ -16,6 +16,8 @@ function handleSubmit(event) {
     if (validUrl.isUri(formText)){
       _postData('http://localhost:8080/article', formText)
     } else {
+      console.log("error");
+      document.getElementById('form').className = 'form-error';
       document.getElementById('error-message').innerHTML = "Sorry, this is not a valid URL."
     }
 }
@@ -44,7 +46,7 @@ const _postData = async (path, input_url) => {
           document.getElementById('polarity_confidence').innerHTML = JSON.stringify(res.polarity_confidence);
           document.getElementById('subjectivity_confidence').innerHTML = JSON.stringify(res.subjectivity_confidence);
           document.getElementById('excerpt').innerHTML = JSON.stringify(res.text);
-  }
+  } 
 )}
 
 export { handleSubmit }

@@ -4,6 +4,11 @@ form {
     padding: 40px;
 }
 
+.form-error{
+    border: 2px solid red;
+    color: red;
+}
+
 input {
     padding: 5px 20px;
     width: 100%;
@@ -15,4 +20,8 @@ input {
     font-family: 'Nanum Myeongjo', serif;
     font-size: 4em;
     font-weight: 700;
+}
+
+#error-message {
+    color: red;
 }
