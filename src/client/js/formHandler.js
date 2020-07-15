@@ -1,7 +1,7 @@
 var validUrl = require('valid-url')
 function handleSubmit(event) {
     event.preventDefault()
-
+    
     // check what text was put into the form field
     //Client.checkForName(formText)
     //var input_url = document.querySelectorAll('input[name=test-url]');
@@ -14,7 +14,9 @@ function handleSubmit(event) {
     //})
     let formText = document.getElementById('name').value
     if (validUrl.isUri(formText)){
-      _postData('http://localhost:8080/article', formText)
+      document.getElementById('form').classList.remove('form-error');
+      document.getElementById('error-message').innerHTML = "";
+      _postData('http://localhost:8080/article', formText);
     } else {
       console.log("error");
       document.getElementById('form').className = 'form-error';
